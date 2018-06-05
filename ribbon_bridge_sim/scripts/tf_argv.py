@@ -2,6 +2,7 @@
 #coding: utf-8
 
 import rospy
+import sys
 
 import tf
 from ribbon_bridge_sim.msg import *
@@ -26,15 +27,16 @@ def handle_boat_pose(msg, modelname):
         modelname,
         "world")
 
-
-def main():
-    print "Input modelname"
-    modelname = raw_input()
-
+def main(modelname):
     rospy.init_node("boat_tf_broadcaster_" + modelname)
 
     rospy.Subscriber("/gazebo/model_states", ModelStates, handle_boat_pose, modelname)
     rospy.spin()
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        print "There is no model name."
+
+    else:
+        print "Model name: " + str(sys.argv[1])
+        main(sys.argv[1])

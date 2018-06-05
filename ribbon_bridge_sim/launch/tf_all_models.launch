@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="ribbon_bridge_sim" type="tf_mul.py" name="tf_mul" />
+   <node pkg="rviz" type="rviz" name="rviz" />
+</launch>
