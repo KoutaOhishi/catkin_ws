@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>emergency_floating_boat</name>
+  <name>tf_tutorial</name>
   <version>0.0.0</version>
-  <description>The emergency_floating_boat package</description>
+  <description>The tf_tutorial package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/emergency_floating_boat</url> -->
+  <!-- <url type="website">http://wiki.ros.org/tf_tutorial</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
@@ -32,7 +32,7 @@
   <!-- Dependencies can be catkin packages or system dependencies -->
   <!-- Examples: -->
   <!-- Use depend as a shortcut for packages that are both build and exec dependencies -->
-  <!--   <exec_depend>roscpp</exec_depend> -->
+  <!--   <depend>roscpp</depend> -->
   <!--   Note that this is equivalent to the following: -->
   <!--   <build_depend>roscpp</build_depend> -->
   <!--   <exec_depend>roscpp</exec_depend> -->
@@ -49,24 +49,15 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>message_generation</build_depend>
-  <build_depend>rospcc</build_depend>
+  <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
-  <build_export_depend>rospcc</build_export_depend>
+  <build_depend>turtlesim</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
-  <exec_depend>rospcc</exec_depend>
+  <build_export_depend>turtlesim</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
-  
-  <exec_depend>cmake_modules</exec_depend>
-  <exec_depend>gazebo_plugins</exec_depend>
-  <exec_depend>gazebo_ros</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>hector_gazebo_plugins</exec_depend>
-  <exec_depend>message_generation</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>wamv_description</exec_depend>
-
+  <exec_depend>turtlesim</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

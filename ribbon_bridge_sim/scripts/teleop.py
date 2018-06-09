@@ -38,14 +38,20 @@ def main():
 
     print usage
 
+    sys.stdout.write("\rleft:[%s]   right:[%s]" %(str(left), str(right)))
+    sys.stdout.flush()
+    time.sleep(0.01)
+
     while not rospy.is_shutdown():
         #rospy.loginfo("left:[%s]"%str(left))
         #rospy.loginfo("right:[%s]"%str(right))
-        sys.stdout.write("\rleft:[%s]   right:[%s]" %(str(left), str(right)))
-        sys.stdout.flush()
-        time.sleep(0.01)
-
         key = readchar.readchar()
+
+        if left >= 10000.0:
+            left = init_param
+
+        if right >= 10000.0:
+            right = init_param
 
         if key == "q":
             print "\n" # 改行
@@ -54,57 +60,71 @@ def main():
         elif key == "t": # speed up
             left *= 2
             right *= 2
+            sys.stdout.write("\rcommand[speed up]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "b": # speed down
             left *= 0.5
             right *= 0.5
+            sys.stdout.write("\rcommand[speed down]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "r": # reset parameters
             left = init_param
             right = init_param
+            sys.stdout.write("\rcommand[reset parameters]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "i": # 前進
             msg.left = left
             msg.right = right
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ↑   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "o": # 右前
             msg.left = left
             msg.right = right/4
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ➚   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "l": # 右
             msg.left = 0.1
             msg.right = -0.1
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   →   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == ".": # 右後ろ
             msg.left = -left
             msg.right = -right/4
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ➘   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == ",": # 後進
             msg.left = -left
             msg.right = -right
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ↓   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "m": # 左後ろ
             msg.left = -left/4
             msg.right = -right
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ↙   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "j": # 左
             msg.left = -0.1
             msg.right = 0.1
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ←   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         elif key == "u": # 左前
             msg.left = left/4
             msg.right = right
             pub.publish(msg)
+            sys.stdout.write("\rcommand[   ↖   ]   left:[%s]   right:[%s]" %(str(left), str(right)))
 
         else:
-            pass
+            sys.stdout.write("\rcommand[       ]   left:[%s]   right:[%s]" %(str(left), str(right)))
+
+        sys.stdout.flush()
+        time.sleep(0.01)
 
 
 if __name__ == "__main__":

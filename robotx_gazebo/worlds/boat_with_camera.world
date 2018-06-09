@@ -1,0 +1,1867 @@
+<sdf version='1.6'>
+  <world name='SandIsland'>
+    <scene>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <wind>
+      <linear_velocity>10 0 0</linear_velocity>
+    </wind>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose frame=''>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.5 -1</direction>
+    </light>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>46.1295 21.5539 24.8549 0 0.304 -2.78</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    <model name='sandisland'>
+      <pose frame=''>50 50 10 0 -0 0</pose>
+      <static>1</static>
+      <link name='silink'>
+        <collision name='sicoll'>
+          <geometry>
+            <heightmap>
+              <uri>file://sandisland/sandisland2.png</uri>
+              <size>469 469 10</size>
+              <pos>0 0 -9</pos>
+              <texture>
+                <size>10</size>
+                <diffuse>__default__</diffuse>
+                <normal>__default__</normal>
+              </texture>
+              <blend>
+                <min_height>0</min_height>
+                <fade_dist>0</fade_dist>
+              </blend>
+            </heightmap>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='si_is'>
+          <geometry>
+            <heightmap>
+              <use_terrain_paging>0</use_terrain_paging>
+              <texture>
+                <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>1</size>
+              </texture>
+              <texture>
+                <diffuse>file://media/materials/textures/fungus_diffusespecular.png</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>1</size>
+              </texture>
+              <blend>
+                <min_height>2</min_height>
+                <fade_dist>5</fade_dist>
+              </blend>
+              <blend>
+                <min_height>4</min_height>
+                <fade_dist>5</fade_dist>
+              </blend>
+              <uri>file://sandisland/sandisland2.png</uri>
+              <size>469 469 10</size>
+              <pos>0 0 -9</pos>
+            </heightmap>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+    </model>
+    <model name='ocean'>
+      <static>1</static>
+      <link name='ocean_link'>
+        <visual name='ocean_visual1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://ocean/meshes/mesh.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://ocean/materials/scripts/ocean.material</uri>
+              <name>Waves_GLSL</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='ocean_below'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://ocean/meshes/mesh_below.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://ocean/materials/scripts/ocean.material</uri>
+              <name>Waves_GLSL</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='north'>
+          <pose frame=''>234 0 -5 3.14159 -1.57079 3.14159</pose>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>10 468</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://ocean/materials/scripts/ocean.material</uri>
+              <name>Seabox</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='south'>
+          <pose frame=''>-234 0 -5 3.14159 1.57079 3.14159</pose>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>10 468</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://ocean/materials/scripts/ocean.material</uri>
+              <name>Seabox</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='west'>
+          <pose frame=''>0 234 -5 1.5708 -0 0</pose>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>468 10</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://ocean/materials/scripts/ocean.material</uri>
+              <name>Seabox</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='east'>
+          <pose frame=''>0 -234 -5 -1.5708 0 0</pose>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>468 10</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://ocean/materials/scripts/ocean.material</uri>
+              <name>Seabox</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='aerial_camera'>
+      <pose frame=''>-3.21119 -3.53661 3 0 1.57 0</pose>
+      <static>1</static>
+      <link name='camera'>
+        <collision name='camera'>
+          <geometry>
+            <box>
+              <size>0.3 0.5 0.2</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='camera'>
+          <geometry>
+            <box>
+              <size>0.3 0.5 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0.5 0 0.3 1</diffuse>
+          </material>
+        </visual>
+        <sensor name='camera1' type='camera'>
+          <update_rate>30</update_rate>
+          <camera name='head'>
+            <horizontal_fov>1.39626</horizontal_fov>
+            <image>
+              <width>800</width>
+              <height>800</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>aerial_camera/camera1</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>camera_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+          </plugin>
+        </sensor>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+    </model>
+    <model name='floating_boat_3'>
+      <pose frame=''>-0.131933 6.02496 0 0 -0 0</pose>
+      <static>0</static>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <collision name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0 0.4 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>500</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_floater'>
+        <pose frame=''>-3 0 -1 1.57 -0 0</pose>
+        <collision name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_floater'>
+        <pose frame=''>3 0 -1 1.57 -0 0</pose>
+        <collision name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='center_line'>
+        <pose frame=''>0 0 0.5 0 -0 0</pose>
+        <collision name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_line'>
+        <pose frame=''>-3.9 0 0.5 0 -0 0</pose>
+        <collision name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_line'>
+        <pose frame=''>3.9 0 0.5 0 -0 0</pose>
+        <collision name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <joint name='body2right_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_floater</child>
+      </joint>
+      <joint name='body2left_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_floater</child>
+      </joint>
+      <joint name='body2center_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>center_line</child>
+      </joint>
+      <joint name='body2left_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_line</child>
+      </joint>
+      <joint name='body2right_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_line</child>
+      </joint>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 -5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>-3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+    </model>
+    <model name='floating_boat_4'>
+      <pose frame=''>-0.469381 -6.50343 0 0 -0 0</pose>
+      <static>0</static>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <collision name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0 0.4 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>500</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_floater'>
+        <pose frame=''>-3 0 -1 1.57 -0 0</pose>
+        <collision name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_floater'>
+        <pose frame=''>3 0 -1 1.57 -0 0</pose>
+        <collision name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='center_line'>
+        <pose frame=''>0 0 0.5 0 -0 0</pose>
+        <collision name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_line'>
+        <pose frame=''>-3.9 0 0.5 0 -0 0</pose>
+        <collision name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_line'>
+        <pose frame=''>3.9 0 0.5 0 -0 0</pose>
+        <collision name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <joint name='body2right_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_floater</child>
+      </joint>
+      <joint name='body2left_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_floater</child>
+      </joint>
+      <joint name='body2center_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>center_line</child>
+      </joint>
+      <joint name='body2left_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_line</child>
+      </joint>
+      <joint name='body2right_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_line</child>
+      </joint>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 -5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>-3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+    </model>
+    <model name='floating_boat_5'>
+      <pose frame=''>-0.691577 -18.7886 0 0 -0 0</pose>
+      <static>0</static>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <collision name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0 0.4 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>500</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_floater'>
+        <pose frame=''>-3 0 -1 1.57 -0 0</pose>
+        <collision name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_floater'>
+        <pose frame=''>3 0 -1 1.57 -0 0</pose>
+        <collision name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='center_line'>
+        <pose frame=''>0 0 0.5 0 -0 0</pose>
+        <collision name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_line'>
+        <pose frame=''>-3.9 0 0.5 0 -0 0</pose>
+        <collision name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_line'>
+        <pose frame=''>3.9 0 0.5 0 -0 0</pose>
+        <collision name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <joint name='body2right_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_floater</child>
+      </joint>
+      <joint name='body2left_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_floater</child>
+      </joint>
+      <joint name='body2center_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>center_line</child>
+      </joint>
+      <joint name='body2left_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_line</child>
+      </joint>
+      <joint name='body2right_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_line</child>
+      </joint>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 -5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>-3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+    </model>
+    <model name='floating_boat_6'>
+      <pose frame=''>-0.611943 18.1672 0 0 -0 0</pose>
+      <static>0</static>
+      <link name='body'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <collision name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='body'>
+          <geometry>
+            <box>
+              <size>8 12 1</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0 0.4 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>500</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_floater'>
+        <pose frame=''>-3 0 -1 1.57 -0 0</pose>
+        <collision name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_floater'>
+        <pose frame=''>3 0 -1 1.57 -0 0</pose>
+        <collision name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_floater'>
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>12</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='center_line'>
+        <pose frame=''>0 0 0.5 0 -0 0</pose>
+        <collision name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='center_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='left_line'>
+        <pose frame=''>-3.9 0 0.5 0 -0 0</pose>
+        <collision name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='left_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <link name='right_line'>
+        <pose frame=''>3.9 0 0.5 0 -0 0</pose>
+        <collision name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='right_line'>
+          <geometry>
+            <box>
+              <size>0.1 11.9 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <joint name='body2right_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_floater</child>
+      </joint>
+      <joint name='body2left_floater' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_floater</child>
+      </joint>
+      <joint name='body2center_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>center_line</child>
+      </joint>
+      <joint name='body2left_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>left_line</child>
+      </joint>
+      <joint name='body2right_line' type='fixed'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <parent>body</parent>
+        <child>right_line</child>
+      </joint>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>0 -5.5 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>-3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+      <plugin name='BuoyancyPlugin' filename='libbuoyancy_gazebo_plugin.so'>
+        <fluid_density>1000</fluid_density>
+        <fluid_level>0.0</fluid_level>
+        <fluid_drag>5.0</fluid_drag>
+        <link>
+          <name>body</name>
+          <center_of_volume>3.5 0 1</center_of_volume>
+          <area>0.63</area>
+          <height>0.70</height>
+        </link>
+      </plugin>
+    </model>
+    <state world_name='SandIsland'>
+      <sim_time>313 229000000</sim_time>
+      <real_time>316 561695027</real_time>
+      <wall_time>1527412667 265299137</wall_time>
+      <iterations>313229</iterations>
+      <model name='aerial_camera'>
+        <pose frame=''>0 0 34 0 1.57 0</pose>
+        <scale>1 1 1</scale>
+        <link name='camera'>
+          <pose frame=''>0 0 34 0 1.57 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='floating_boat_3'>
+        <pose frame=''>-0.131933 6.02496 0.226983 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-0.131933 6.02496 0.226983 0 -0 0</pose>
+          <velocity>0 0 -0.29261 0 -2e-06 0</velocity>
+          <acceleration>0 0 -3.78901 0 -1.4e-05 0</acceleration>
+          <wrench>-9e-06 0 -1894.5 0 -0 0</wrench>
+        </link>
+        <link name='center_line'>
+          <pose frame=''>-0.131933 6.02496 0.726983 0 -0 0</pose>
+          <velocity>-1e-06 0 -0.29261 0 -2e-06 0</velocity>
+          <acceleration>-6e-06 0 -3.78901 0 -1.2e-05 0</acceleration>
+          <wrench>-6e-06 0 -3.78901 0 -0 0</wrench>
+        </link>
+        <link name='left_floater'>
+          <pose frame=''>2.86807 6.02496 -0.773017 1.57 -0 0</pose>
+          <velocity>2e-06 0 -0.292603 0 -2e-06 0</velocity>
+          <acceleration>1.3e-05 0 -3.78897 0 -1.2e-05 0</acceleration>
+          <wrench>1.3e-05 0 -3.78897 0 -0 0</wrench>
+        </link>
+        <link name='left_line'>
+          <pose frame=''>-4.03193 6.02496 0.726985 0 -0 0</pose>
+          <velocity>-1e-06 0 -0.292618 0 -2e-06 0</velocity>
+          <acceleration>-5e-06 0 -3.78905 0 -1.1e-05 0</acceleration>
+          <wrench>-5e-06 0 -3.78905 0 -0 0</wrench>
+        </link>
+        <link name='right_floater'>
+          <pose frame=''>-3.13193 6.02496 -0.773016 1.57 -0 0</pose>
+          <velocity>2e-06 0 -0.292617 0 -2e-06 0</velocity>
+          <acceleration>1.4e-05 0 -3.78905 0 -1.4e-05 0</acceleration>
+          <wrench>1.4e-05 0 -3.78905 0 -0 0</wrench>
+        </link>
+        <link name='right_line'>
+          <pose frame=''>3.76807 6.02496 0.726982 0 -0 0</pose>
+          <velocity>-1e-06 0 -0.292603 0 -2e-06 0</velocity>
+          <acceleration>-6e-06 0 -3.78897 0 -1.2e-05 0</acceleration>
+          <wrench>-6e-06 0 -3.78897 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='floating_boat_4'>
+        <pose frame=''>-0.469381 -6.50343 0.076236 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-0.469381 -6.50343 0.076236 0 -0 0</pose>
+          <velocity>0 0 -0.385454 0 1e-06 0</velocity>
+          <acceleration>0 0 3.58866 0 -4.5e-05 0</acceleration>
+          <wrench>-2.1e-05 0 1794.33 0 -0 0</wrench>
+        </link>
+        <link name='center_line'>
+          <pose frame=''>-0.469381 -6.50343 0.576236 0 1e-06 0</pose>
+          <velocity>0 0 -0.385454 0 1e-06 0</velocity>
+          <acceleration>-2.4e-05 0 3.58866 0 -4.8e-05 0</acceleration>
+          <wrench>-2.4e-05 0 3.58866 0 -0 0</wrench>
+        </link>
+        <link name='left_floater'>
+          <pose frame=''>2.53062 -6.50343 -0.923766 1.57 1e-06 0</pose>
+          <velocity>-1e-06 0 -0.385456 0 1e-06 0</velocity>
+          <acceleration>4.7e-05 0 3.5888 0 -4.7e-05 0</acceleration>
+          <wrench>4.7e-05 0 3.5888 0 -0 0</wrench>
+        </link>
+        <link name='left_line'>
+          <pose frame=''>-4.36938 -6.50343 0.576238 0 1e-06 0</pose>
+          <velocity>1e-06 0 -0.385451 0 1e-06 0</velocity>
+          <acceleration>-2.4e-05 0 3.58848 0 -4.9e-05 0</acceleration>
+          <wrench>-2.4e-05 0 3.58848 0 -0 0</wrench>
+        </link>
+        <link name='right_floater'>
+          <pose frame=''>-3.46938 -6.50343 -0.923763 1.57 -0 0</pose>
+          <velocity>-1e-06 0 -0.385452 0 1e-06 0</velocity>
+          <acceleration>4.6e-05 0 3.58853 0 -4.6e-05 0</acceleration>
+          <wrench>4.6e-05 0 3.58853 0 -0 0</wrench>
+        </link>
+        <link name='right_line'>
+          <pose frame=''>3.43062 -6.50343 0.576233 0 1e-06 0</pose>
+          <velocity>0 0 -0.385459 0 1e-06 0</velocity>
+          <acceleration>-2.4e-05 0 3.58886 0 -4.8e-05 0</acceleration>
+          <wrench>-2.4e-05 0 3.58886 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='floating_boat_5'>
+        <pose frame=''>-0.691577 -18.7886 0.129058 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-0.691577 -18.7886 0.129058 0 -0 0</pose>
+          <velocity>0 0 0.65709 0 1e-06 0</velocity>
+          <acceleration>0 0 1.03086 0 -3.2e-05 0</acceleration>
+          <wrench>-1.5e-05 0 515.429 0 -0 0</wrench>
+        </link>
+        <link name='center_line'>
+          <pose frame=''>-0.691577 -18.7886 0.629058 0 -0 0</pose>
+          <velocity>0 0 0.65709 0 -0 0</velocity>
+          <acceleration>-1.7e-05 0 1.03086 0 -3.3e-05 0</acceleration>
+          <wrench>-1.7e-05 0 1.03086 0 -0 0</wrench>
+        </link>
+        <link name='left_floater'>
+          <pose frame=''>2.30842 -18.7886 -0.870943 1.57 -0 0</pose>
+          <velocity>0 0 0.657089 0 -0 0</velocity>
+          <acceleration>3.3e-05 0 1.03096 0 -3.3e-05 0</acceleration>
+          <wrench>3.3e-05 0 1.03096 0 -0 0</wrench>
+        </link>
+        <link name='left_line'>
+          <pose frame=''>-4.59158 -18.7886 0.62906 0 1e-06 0</pose>
+          <velocity>0 0 0.657091 0 -0 0</velocity>
+          <acceleration>-1.7e-05 0 1.03073 0 -3.3e-05 0</acceleration>
+          <wrench>-1.7e-05 0 1.03073 0 -0 0</wrench>
+        </link>
+        <link name='right_floater'>
+          <pose frame=''>-3.69158 -18.7886 -0.870941 1.57 -0 0</pose>
+          <velocity>0 0 0.657092 0 -0 0</velocity>
+          <acceleration>3.2e-05 0 1.03076 0 -3.3e-05 0</acceleration>
+          <wrench>3.2e-05 0 1.03076 0 -0 0</wrench>
+        </link>
+        <link name='right_line'>
+          <pose frame=''>3.20842 -18.7886 0.629056 0 -0 0</pose>
+          <velocity>0 0 0.657092 0 -0 0</velocity>
+          <acceleration>-1.7e-05 0 1.03099 0 -3.3e-05 0</acceleration>
+          <wrench>-1.7e-05 0 1.03099 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='floating_boat_6'>
+        <pose frame=''>-0.611943 18.1672 0.050307 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='body'>
+          <pose frame=''>-0.611943 18.1672 0.050307 0 -0 0</pose>
+          <velocity>0 0 -0.101884 0 -3e-06 0</velocity>
+          <acceleration>0 0 4.8663 0 2.6e-05 0</acceleration>
+          <wrench>1.5e-05 0 2433.15 0 -0 0</wrench>
+        </link>
+        <link name='center_line'>
+          <pose frame=''>-0.611943 18.1672 0.550307 0 -0 0</pose>
+          <velocity>-1e-06 0 -0.101884 0 -2e-06 0</velocity>
+          <acceleration>1.1e-05 0 4.8663 0 2.3e-05 0</acceleration>
+          <wrench>1.1e-05 0 4.8663 0 -0 0</wrench>
+        </link>
+        <link name='left_floater'>
+          <pose frame=''>2.38806 18.1672 -0.949693 1.57 -0 0</pose>
+          <velocity>3e-06 0 -0.101877 0 -3e-06 0</velocity>
+          <acceleration>-2.4e-05 0 4.86623 0 2.3e-05 0</acceleration>
+          <wrench>-2.4e-05 0 4.86623 0 -0 0</wrench>
+        </link>
+        <link name='left_line'>
+          <pose frame=''>-4.51194 18.1672 0.550307 0 -0 0</pose>
+          <velocity>-1e-06 0 -0.101894 0 -2e-06 0</velocity>
+          <acceleration>1.1e-05 0 4.86639 0 2.2e-05 0</acceleration>
+          <wrench>1.1e-05 0 4.86639 0 -0 0</wrench>
+        </link>
+        <link name='right_floater'>
+          <pose frame=''>-3.61194 18.1672 -0.949694 1.57 -0 0</pose>
+          <velocity>3e-06 0 -0.101892 0 -3e-06 0</velocity>
+          <acceleration>-2.5e-05 0 4.86638 0 2.5e-05 0</acceleration>
+          <wrench>-2.5e-05 0 4.86638 0 -0 0</wrench>
+        </link>
+        <link name='right_line'>
+          <pose frame=''>3.28806 18.1672 0.550306 0 -0 0</pose>
+          <velocity>-1e-06 0 -0.101875 0 -2e-06 0</velocity>
+          <acceleration>1.1e-05 0 4.86623 0 2.3e-05 0</acceleration>
+          <wrench>1.1e-05 0 4.86623 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ocean'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='ocean_link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='sandisland'>
+        <pose frame=''>50 50 10 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='silink'>
+          <pose frame=''>50 50 10 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+  </world>
+</sdf>
