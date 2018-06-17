@@ -13,11 +13,14 @@ Stop_flag = False
 
 Init_param = 10.0
 Force_param = Init_param
+Torque_param = Init_param
 
 #buttons[4] = front
 #buttons[5] = right
 #buttons[6] = back
 #buttons[7] = left
+#buttons[8] = L2
+#buttons[9] = R2
 #buttons[10] = L1
 #buttons[11] = R1
 #buttons[12] = △
@@ -29,8 +32,9 @@ How2Use = """
 ←   →   |  -y   y
   ↓     |    -x
 
-△ -> Speed Up     × -> Speed Down
-□ -> Reset Speed  ○ -> Brake
+ △ -> Speed Up     × -> Speed Down
+ □ -> Reset Speed  ○ -> Brake
+L2 -> ↺           R2 -> ↻
 
 L1 + R1 -> Quit
 """
@@ -49,6 +53,12 @@ def joy_cb(msg):
 
     elif msg.buttons[7] == 1:
         command = "left"
+
+    elif msg.buttons[8] == 1:
+        command = "turn_left"
+
+    elif msg.buttons[9] == 1:
+        command = "turn_right"
 
     elif msg.buttons[10] == 1 and msg.buttons[11] == 1:
         Stop_flag = True
@@ -116,6 +126,22 @@ def Force(way):
         wrench.torque.x = 0
         wrench.torque.y = 0
         wrench.torque.z = 0
+
+    elif way == "turn_right":
+        wrench.force.x = 0
+        wrench.force.y = 0
+        wrench.force.z = 0
+        wrench.torque.x = 0
+        wrench.torque.y = 0
+        wrench.torque.z = Torque_param
+
+    elif way == "turn_left":
+        wrench.force.x = 0
+        wrench.force.y = 0
+        wrench.force.z = 0
+        wrench.torque.x = 0
+        wrench.torque.y = 0
+        wrench.torque.z = -Torque_param
 
     elif way == "brake":
         wrench.force.x = 0
