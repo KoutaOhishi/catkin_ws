@@ -79,7 +79,7 @@ def joy_cb(msg):
         command = "Reset Speed"
 
     else:
-        pass
+        command = "brake"
 
     Force(command)
     sys.stdout.write("\rcommand:[%s] speed:[%s]" %(command,str(Force_param)))
@@ -89,6 +89,10 @@ def joy_cb(msg):
 
 def Force(way):
     apply_body_wrench = rospy.ServiceProxy('/gazebo/apply_body_wrench', ApplyBodyWrench)
+
+    clear_body_wrenches = rospy.ServiceProxy("/gazebo/clear_body_wrenches", BodyRequest)
+
+    get_link_state = rospy.ServiceProxy("/gazebo/get_link_state", GetLinkState)
 
     body_name = "tug_boat::body"
     reference_frame = "world"
@@ -133,7 +137,7 @@ def Force(way):
         wrench.force.z = 0
         wrench.torque.x = 0
         wrench.torque.y = 0
-        wrench.torque.z = Torque_param
+        wrench.torque.z = -Torque_param
 
     elif way == "turn_left":
         wrench.force.x = 0
@@ -141,15 +145,31 @@ def Force(way):
         wrench.force.z = 0
         wrench.torque.x = 0
         wrench.torque.y = 0
-        wrench.torque.z = -Torque_param
+        wrench.torque.z = Torque_param
 
     elif way == "brake":
-        wrench.force.x = 0
-        wrench.force.y = 0
-        wrench.force.z = 0
-        wrench.torque.x = 0
-        wrench.torque.y = 0
-        wrench.torque.z = 0
+        res = get_link_state(link_name=body_name)
+        
+        if res.link_state.twist.linear.x < -0.001:
+            wrench.force.x = Force_param
+
+        elif res.link_state.twist.linear.x > 0.001:
+            wrench.force.x = -Force_param
+
+        if res.link_state.twist.linear.y < -0.001:
+            wrench.force.y = Force_param
+
+        elif res.link_state.twist.linear.y > 0.001:
+            wrench.force.y = -Force_param
+
+        if res.link_state.twist.angular.z < -0.001:
+            wrench.torque.z = Torque_param
+
+        elif res.link_state.twist.angular.z > 0.001:
+            wrench.torque.z = -Torque_param
+
+        else:
+            pass
 
     else:
         pass
