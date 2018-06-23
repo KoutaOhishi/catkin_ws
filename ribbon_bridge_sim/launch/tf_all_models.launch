@@ -1,4 +1,7 @@
 <launch>
-   <node pkg="ribbon_bridge_sim" type="tf_mul.py" name="tf_mul" />
-   <node pkg="rviz" type="rviz" name="rviz" />
+   <!-- <node pkg="ribbon_bridge_sim" type="tf_mul.py" name="tf_mul" /> -->
+   <node pkg="ribbon_bridge_sim" type="tf_all_link.py" name="tf_all_link" />
+   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ribbon_bridge_sim)/config/config.rviz"/>
+
+   <param name="robot_description" textfile="$(find ribbon_bridge_sim)/urdf/model.urdf" />
 </launch>
