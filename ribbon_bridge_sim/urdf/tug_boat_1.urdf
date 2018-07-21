@@ -1,0 +1,224 @@
+<?xml version="1.0" ?>
+<robot name="tug_boat_1">
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="gray">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+  
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  
+  <joint name="tug_boat_1::body2right_floater" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::right_floater"/>
+    <origin rpy="0   1.57 1.57" xyz="2.99999e+00 -2.38000e-03 -1.00000e+00"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="tug_boat_1::body2left_floater" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::left_floater"/>
+    <origin rpy="0   1.57 1.57" xyz="-2.99999e+00  2.38000e-03 -1.00000e+00"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="tug_boat_1::body2center_line" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::center_line"/>
+    <origin rpy="0   0   1.57" xyz="0  0  0.5"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="tug_boat_1::body2left_line" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::left_line"/>
+    <origin rpy="0   0   1.57" xyz="3.89999e+00 -3.10000e-03  5.00000e-01"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="tug_boat_1::body2right_line" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::right_line"/>
+    <origin rpy="0   0   1.57" xyz="-3.89999e+00  3.10000e-03  5.00000e-01"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="tug_boat_1::body2front_line" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::front_line"/>
+    <origin rpy="0   0   1.57" xyz="4.69000e-03 5.89999e+00 5.00000e-01"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="tug_boat_1::body2back_line" type="fixed">
+    <parent link="tug_boat_1::body"/>
+    <child link="tug_boat_1::back_line"/>
+    <origin rpy="0   0   1.57" xyz="-4.69000e-03 -5.89999e+00  5.00000e-01"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <link name="tug_boat_1::body">
+    <inertial>
+      <mass value="1000"/>
+      <origin rpy="0   0   1.57" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::body">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="12.0 8.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::body">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="12.0 8.0 1.0"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::right_floater">
+    <inertial>
+      <mass value="30"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::right_floater">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="12.0" radius="1.0"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::right_floater">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="12.0" radius="1.0"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::left_floater">
+    <inertial>
+      <mass value="30"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::left_floater">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="12.0" radius="1.0"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::left_floater">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="12.0" radius="1.0"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::center_line">
+    <inertial>
+      <mass value="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::center_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="11.9 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::center_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="11.9 0.1 0.1"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::left_line">
+    <inertial>
+      <mass value="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::left_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="11.9 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::left_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="11.9 0.1 0.1"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::right_line">
+    <inertial>
+      <mass value="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::right_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="11.9 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::right_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="11.9 0.1 0.1"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::front_line">
+    <inertial>
+      <mass value="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::front_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 7.9 0.1"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::front_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 7.9 0.1"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <link name="tug_boat_1::back_line">
+    <inertial>
+      <mass value="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision name="tug_boat_1::back_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 7.9 0.1"/>
+      </geometry>
+    </collision>
+    <visual name="tug_boat_1::back_line">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 7.9 0.1"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+</robot>

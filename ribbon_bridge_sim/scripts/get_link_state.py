@@ -12,10 +12,10 @@ def Get_state(link_name):
 
     try:
         res = get_link_state(link_name=link_name)
-        print res.link_state.twist
+        print res.link_state
 
     except rospy.ServiceException as e:
-        rospy.logerror("Service Exception")
+        rospy.logerr("Service Exception")
 
 def main():
     rospy.wait_for_service("/gazebo/get_link_state")

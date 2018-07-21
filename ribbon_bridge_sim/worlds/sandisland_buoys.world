@@ -3,14 +3,21 @@
   <world name="SandIsland">
     <scene>
       <sky>
+	<!-- <sunset>6</sunset> -->
         <clouds>
           <speed>12</speed>
         </clouds>
       </sky>
+	<!--
+      <fog>
+	<color>1 1 1 0.25</color>
+	<type>linear</type>
+      </fog>
+	-->
     </scene>
 
     <wind>
-      <linear_velocity>10 0 0</linear_velocity> <!-- Wind linear velocity -->
+      <linear_velocity>5 0 0</linear_velocity> <!-- Wind linear velocity -->
     </wind>
     
     <!-- A global light source -->
@@ -41,7 +48,12 @@
       <pose> 0 0 0 0 0 0 </pose>
       <uri>model://models/ocean</uri>      
     </include>
-
+	
+    <!-- Aerial Camera -->
+    <include>
+      <pose> 0 0 10 0 1.57 3.14 </pose>
+      <uri>model://models/aerial_camera</uri>
+    </include>
 
     
 

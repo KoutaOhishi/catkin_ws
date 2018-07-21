@@ -21,14 +21,14 @@ def handle_boat_pose(msg, modelname):
     qw = msg.pose[i].orientation.w
 
     br = tf.TransformBroadcaster()
-    br.sendTransform((x,y,0),
+    br.sendTransform((x,y,z),
         (qx, qy, qz, qw),
         rospy.Time.now(),
         modelname,
         "world")
 
 def main(modelname):
-    rospy.init_node("boat_tf_broadcaster_" + modelname)
+    rospy.init_node("boat_tf_broadcaster_" + modelname, anonymous=True)
 
     rospy.Subscriber("/gazebo/model_states", ModelStates, handle_boat_pose, modelname)
     rospy.spin()

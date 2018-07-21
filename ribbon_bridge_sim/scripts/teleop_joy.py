@@ -149,24 +149,24 @@ def Force(way):
 
     elif way == "brake":
         res = get_link_state(link_name=body_name)
-        
+
         if res.link_state.twist.linear.x < -0.001:
-            wrench.force.x = Force_param
+            wrench.force.x = Force_param * 100
 
         elif res.link_state.twist.linear.x > 0.001:
-            wrench.force.x = -Force_param
+            wrench.force.x = -Force_param * 100
 
         if res.link_state.twist.linear.y < -0.001:
-            wrench.force.y = Force_param
+            wrench.force.y = Force_param * 100
 
         elif res.link_state.twist.linear.y > 0.001:
-            wrench.force.y = -Force_param
+            wrench.force.y = -Force_param * 100
 
         if res.link_state.twist.angular.z < -0.001:
-            wrench.torque.z = Torque_param
+            wrench.torque.z = Torque_param * 10
 
         elif res.link_state.twist.angular.z > 0.001:
-            wrench.torque.z = -Torque_param
+            wrench.torque.z = -Torque_param * 10 
 
         else:
             pass

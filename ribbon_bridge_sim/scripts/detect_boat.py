@@ -31,7 +31,8 @@ def img_cb(msg):
         # 輪郭を抽出
         dst, contours, hierarchy = cv2.findContours(dst, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-        #dst = cv2.imread(cv_img, cv2.IMREAD_COLOR)
+        # windowサイズの調整
+        show_img_size = (cv_width/5, cv_height/5)
 
         for i, contour in enumerate(contours):
             # 小さな領域の場合は間引く
@@ -43,16 +44,11 @@ def img_cb(msg):
             if image_size * 0.99 < area:
                 continue
 
-            # 外接矩形を取得
+            # 外接矩形を取得s
             x,y,w,h = cv2.boundingRect(contour)
             dst = cv2.rectangle(cv_img,(x,y),(x+w,y+h),(0,0,255),5)
 
-
-        # windowサイズの調整
-        show_img_size = (cv_width/5, cv_height/5)
         show_img = cv2.resize(dst, show_img_size)
-
-
 
         cv2.imshow("window", show_img)
         cv2.waitKey(1)

@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="ribbon_bridge_sim" type="move_cam.py" name="move_cam" output="screen" />
+	<node pkg="ribbon_bridge_sim" type="img_show.py" name="img_show" output="screen" />
+</launch>

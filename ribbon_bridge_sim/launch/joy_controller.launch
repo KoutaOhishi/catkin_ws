@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="joy" type="joy_node" name="joy_node" />
+	<node pkg="ribbon_bridge_sim" type="teleop_joy.py" name="teleop_joy" output="screen" />
+</launch>

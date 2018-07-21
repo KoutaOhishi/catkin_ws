@@ -1,0 +1,6 @@
+img_name: aerial_img.png
+img_topic: /ribbon_bridge_measurement/result_img
+img_width: 2160
+img_height: 4096
+map_name: aerial_map.png
+contact_area: 30 #接触禁止範囲の定義
