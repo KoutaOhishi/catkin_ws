@@ -45,9 +45,13 @@ class RouteGenerator:
 
         #self.img_sub = rospy.Subscriber(self.img_topic, Image, self.img_cb)
 
-        self.map_sub = rospy.Subscriber("/ribbon_bridge_measurement/result_data", RibbonBridges, self.rect_cb)
+        #self.map_sub = rospy.Subscriber("/ribbon_bridge_measurement/result_data", RibbonBridges, self.rect_cb)
 
         self.center_sub = rospy.Subscriber("/ribbon_bridge_measurement/result_data", RibbonBridges, self.center_cb)
+
+        self.center_x = 0
+        self.center_y = 0
+
 
     def main(self):
         #img_sub = rospy.Subscriber(self.img_topic, Image, self.img_cb)
@@ -69,10 +73,21 @@ class RouteGenerator:
 
         find_path_flag = False
 
-
         img = cv2.imread(self.pkg_path + "/img/test.png")
 
-        find_path = self.astar(img, start, goal, self.distance, self.heuristic)
+
+        #画像サイズを1/10にして処理を早くする#
+        org_H, org_W = img.shape[:2]
+        resize = (org_W/10, org_H/10)
+        resize_img = cv2.resize(img, resize)
+        start = (center_y/10, center_x/10)
+        goal = (goal_y/10, goal_x/10)
+        find_path = self.astar(resize_img, start, goal, self.distance, self.heuristic)
+        #cv2.imwrite(self.pkg_path + "/img/resize.png", resize_img)
+        ###################
+
+        #find_path = self.astar(img, start, goal, self.distance, self.heuristic)
+
 
         if find_path != None:
             find_path_flag = True
@@ -84,18 +99,13 @@ class RouteGenerator:
         elif find_path_flag == True:
             rospy.loginfo("RouteGenerator -> Found Path ")
             self.make_result_img(start, goal, find_path)
+            self.make_result_img_x10(start, goal, find_path)
 
 
 
         path_img = cv2.imread(self.pkg_path + "/img/path.png")
         cv2.circle(path_img, (center_x,center_y), 20, (255,0,0), -1)
 
-        """
-        show_img_size = (self.map_height/10, self.map_width/10)
-        show_img = cv2.resize(img, show_img_size)
-        cv2.imshow("window", show_img)
-        cv2.waitKey(1)
-        """
 
         cv2.imwrite(self.pkg_path + "/img/path.png", path_img)
 
@@ -138,19 +148,46 @@ class RouteGenerator:
         return len(path)
 
     def make_result_img(self, start, goal, path):
-        map_color = cv2.imread(self.pkg_path + "/img/test.png")
+        map_color = cv2.imread(self.pkg_path + "/img/resize.png")
         for i in range(len(path)):
             cv2.circle(map_color,(path[i][1], path[i][0]), 1, (0,0,255), -1)
         cv2.circle(map_color,(path[-1][1], path[-1][0]), 4, (0,255,0), -1)
-        cv2.circle(map_color,(start[1], start[0]), 20, (0,0,255), -1)
-        cv2.circle(map_color,(goal[1], goal[0]), 20, (255,0,255), -1)
+        cv2.circle(map_color,(start[1], start[0]), 4, (0,0,255), -1)
+        cv2.circle(map_color,(goal[1], goal[0]), 4, (255,0,255), -1)
+
+        show_img_size = (self.map_height/5, self.map_width/5)
+        show_img = cv2.resize(map_color, show_img_size)
+        cv2.imshow("path_image", show_img)
+        cv2.waitKey(1)
 
         cv2.imwrite(self.pkg_path + "/img/path.png", map_color)
 
+    def make_result_img_x10(self, start, goal, path):
+        """画像を10倍したもの"""
+        map_color = cv2.imread(self.pkg_path + "/img/test.png")
+        for i in range(len(path)):
+            #cv2.circle(map_color,(path[i][1], path[i][0]), 1, (0,0,255), -1)
+            #img = cv2.line(img,(start_y,start_x),(goal_y,goal_x),(255,0,0),5)
+            if i == 0:
+                cv2.line(map_color,(start[1]*10,start[0]*10),(path[i][1]*10,path[i][0]*10),(0,0,255),5)
+            else:
+                cv2.line(map_color,(path[i-1][1]*10,path[i-1][0]*10),(path[i][1]*10,path[i][0]*10),(0,0,255),5)
+
+        cv2.circle(map_color,(path[-1][1]*10, path[-1][0]*10), 4, (0,255,0), -1)
+        cv2.circle(map_color,(start[1]*10, start[0]*10), 20, (0,0,255), -1)
+        cv2.circle(map_color,(goal[1]*10, goal[0]*10), 20, (255,0,255), -1)
+
+        cv2.imwrite(self.pkg_path + "/img/path_x10.png", map_color)
+
+        show_img_size = (self.map_height/5, self.map_width/5)
+        show_img = cv2.resize(map_color, show_img_size)
+        cv2.imshow("path_image x 10", show_img)
+        cv2.waitKey(1)
+
 
     def rect_cb(self, msg):
-        center_x = msg.RibbonBridges[0].center.x
-        center_y = msg.RibbonBridges[0].center.y
+        center_x = int(msg.RibbonBridges[0].center.x)
+        center_y = int(msg.RibbonBridges[0].center.y)
         center_theta = msg.RibbonBridges[0].center.theta
 
         corner_0 = msg.RibbonBridges[0].corners[0]
@@ -158,22 +195,33 @@ class RouteGenerator:
         corner_2 = msg.RibbonBridges[0].corners[2]
         corner_3 = msg.RibbonBridges[0].corners[3]
 
+        #検出した浮体の縦と横の長さを計算
+        boat_w = int(corner_3.x - corner_1.x)
+        boat_h = int(corner_1.y - corner_3.y)
+
+        #検出した浮体の縦横の長さで大きい方を円の半径とする
+        if boat_h >= boat_w:
+            radius = boat_w
+
+        else:
+            radius = boat_h
+
         map_raw = cv2.imread(self.blank_map_path)
+        ret, map_thresh = cv2.threshold(map_raw, 210, 255, cv2.THRESH_BINARY)
 
         cv2.rectangle(map_raw, (int(corner_1.x), int(corner_1.y)), (int(corner_3.x), int(corner_3.y)), (0,0,0), -1)
 
-        cv2.imwrite(self.map_path, map_raw)
-
-        ret, map_thresh = cv2.threshold(map_raw, 210, 255, cv2.THRESH_BINARY)
-
+        """
         for x in range(self.map_height/10):
             for y in range(self.map_width/10):
                 pixelValue = map_thresh[y*10][x*10][0]
                 if pixelValue == 0:
                     cv2.circle(map_raw,(x*10,y*10), self.contact_area, (0,0,255), -1)#costの付与
+        """
 
-        cv2.rectangle(map_raw, (int(corner_1.x), int(corner_1.y)), (int(corner_3.x), int(corner_3.y)), (0,0,0), -1)
+        cv2.circle(map_raw,(center_x, center_y), radius, (0,0,0), -1)#costの付与
 
+        cv2.rectangle(map_raw, (int(corner_1.x), int(corner_1.y)), (int(corner_3.x), int(corner_3.y)), (0,0,255), 3)
 
         save_path = self.pkg_path + "/img/" + "cost.png"
 
