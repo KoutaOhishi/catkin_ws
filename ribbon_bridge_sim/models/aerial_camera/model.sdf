@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.4'>
   <model name="aerial_camera">
-    <pose>0 0 3 0 1.57 3.14</pose>
+    <pose>0 0 5 0 1.57 0</pose>
     <static>true</static>
 
     <link name="camera">
@@ -27,8 +27,10 @@
       <camera name="head">
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
-          <width>4096</width>
-          <height>2160</height>
+          <!--width>4096</width-->
+          <!--height>2160</height-->
+	  <width>1600</width>
+          <height>900</height>
           <format>R8G8B8</format>
         </image>
         <clip>

@@ -7,7 +7,7 @@ import readchar
 from gazebo_msgs.msg import *
 
 def main():
-    pub = rospy.Publisher("/gazebo/set_model_state", ModelState, queue_size=1)
+    pub = rospy.Publisher("/gazebo/set_model_state", ModelState, queue_size=1, latch=True)
 
     pub_msg = ModelState()
 
@@ -25,10 +25,17 @@ def main():
     pub_msg.pose.position.z = init_z
 
     # カメラが下を向くposition
+    #pub_msg.pose.orientation.x = 0.707
+    #pub_msg.pose.orientation.y = 0.0
+    #pub_msg.pose.orientation.z = -0.707
+    #pub_msg.pose.orientation.w = 0.0
     pub_msg.pose.orientation.x = 0.0
     pub_msg.pose.orientation.y = 0.707
     pub_msg.pose.orientation.z = 0.0
     pub_msg.pose.orientation.w = 0.707
+
+    # カメラの回転
+    pub_msg.twist.linear.z = 1.0
 
     usage = """
     Moving around:

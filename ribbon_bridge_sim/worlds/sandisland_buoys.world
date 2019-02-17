@@ -51,7 +51,7 @@
 	
     <!-- Aerial Camera -->
     <include>
-      <pose> 0 0 10 0 1.57 3.14 </pose>
+      <pose> 0 0 50 0 1.57 1.57 </pose>
       <uri>model://models/aerial_camera</uri>
     </include>
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding: utf-8
-
+""" コマンドラインの引数でモデルの名前を与えて、そのTFをbroadcastするノード """
 import rospy
 import sys
 

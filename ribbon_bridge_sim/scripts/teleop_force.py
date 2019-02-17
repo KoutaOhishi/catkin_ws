@@ -30,7 +30,7 @@ Torque_param = init_param
 def Force(way):
     apply_body_wrench = rospy.ServiceProxy('/gazebo/apply_body_wrench', ApplyBodyWrench)
 
-    body_name = "tug_boat::body"
+    body_name = "tug_boat_6::body"
     reference_frame = "world"
     wrench = Wrench()
     duration = rospy.Duration(1) #単位はsecond

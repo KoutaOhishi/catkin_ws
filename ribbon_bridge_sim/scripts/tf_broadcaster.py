@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding: utf-8
-
+""" modelの名前をプログラム上で指定してからそのｔｆをbroadcastするノード """
 import rospy
 
 import tf

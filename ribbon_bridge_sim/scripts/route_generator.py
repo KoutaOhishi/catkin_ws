@@ -64,50 +64,57 @@ class RouteGenerator:
         center_y = int(msg.RibbonBridges[0].center.y)
         center_theta = msg.RibbonBridges[0].center.theta
 
-        goal_x = 3000
-        goal_y = 1000
-        goal_theta = 0.0
+        if self.center_x == center_x and self.center_y == center_y:
+            rospy.loginfo("座標の変化はありません")
 
-        start = (center_y, center_x)
-        goal = (goal_y, goal_x)
+        else:
+            self.center_x = center_x
+            self.center_y = center_y
 
-        find_path_flag = False
+            goal_x = 3000
+            goal_y = 1000
+            goal_theta = 0.0
 
-        img = cv2.imread(self.pkg_path + "/img/test.png")
+            start = (center_y, center_x)
+            goal = (goal_y, goal_x)
 
+            find_path_flag = False
 
-        #画像サイズを1/10にして処理を早くする#
-        org_H, org_W = img.shape[:2]
-        resize = (org_W/10, org_H/10)
-        resize_img = cv2.resize(img, resize)
-        start = (center_y/10, center_x/10)
-        goal = (goal_y/10, goal_x/10)
-        find_path = self.astar(resize_img, start, goal, self.distance, self.heuristic)
-        #cv2.imwrite(self.pkg_path + "/img/resize.png", resize_img)
-        ###################
-
-        #find_path = self.astar(img, start, goal, self.distance, self.heuristic)
+            img = cv2.imread(self.pkg_path + "/img/test.png")
 
 
-        if find_path != None:
-            find_path_flag = True
+            #画像サイズを1/10にして処理を早くする#
+            org_H, org_W = img.shape[:2]
+            resize = (org_W/10, org_H/10)
+            resize_img = cv2.resize(img, resize)
+            start = (center_y/10, center_x/10)
+            goal = (goal_y/10, goal_x/10)
+            find_path = self.astar(resize_img, start, goal, self.distance, self.heuristic)
+            #cv2.imwrite(self.pkg_path + "/img/resize.png", resize_img)
+            ###################
+
+            #find_path = self.astar(img, start, goal, self.distance, self.heuristic)
 
 
-        if find_path_flag == False:
-            rospy.logerr("RouteGenerator -> Can not Find Path ")
-
-        elif find_path_flag == True:
-            rospy.loginfo("RouteGenerator -> Found Path ")
-            self.make_result_img(start, goal, find_path)
-            self.make_result_img_x10(start, goal, find_path)
+            if find_path != None:
+                find_path_flag = True
 
 
+            if find_path_flag == False:
+                rospy.logerr("RouteGenerator -> Can not Find Path ")
 
-        path_img = cv2.imread(self.pkg_path + "/img/path.png")
-        cv2.circle(path_img, (center_x,center_y), 20, (255,0,0), -1)
+            elif find_path_flag == True:
+                rospy.loginfo("RouteGenerator -> Found Path ")
+                self.make_result_img(start, goal, find_path)
+                self.make_result_img_x10(start, goal, find_path)
 
 
-        cv2.imwrite(self.pkg_path + "/img/path.png", path_img)
+
+            path_img = cv2.imread(self.pkg_path + "/img/path.png")
+            cv2.circle(path_img, (center_x,center_y), 20, (255,0,0), -1)
+
+
+            cv2.imwrite(self.pkg_path + "/img/path.png", path_img)
 
 
     def astar(self, map_img, init, goal, distance=lambda path: len(path), heuristic=lambda pos: 0):
